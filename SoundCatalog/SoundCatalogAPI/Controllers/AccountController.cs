@@ -202,35 +202,7 @@ namespace SoundCatalogAPI.Controllers
                 return Ok();
             }
             return this.BadRequest(result.Errors.ToList().First().Description);
-        }
-
-        ////
-        //// GET: /Account/ResetPassword
-        //[AllowAnonymous]
-        //[Route("resetpassword")]
-        //public async Task<ActionResult> ResetPassword_old(string userId, string code, string password)
-        //{
-        //    if (userId == null || code == null)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    var user = await this._userManager.FindByIdAsync(userId);
-        //    if (user == null)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    //Hack: The code generate when is processed by querystring, it replace '+' symbol with ' '"
-        //    code = code.Replace(" ", "+");
-        //    var result = await this._userManager.ResetPasswordAsync(user, code,password);
-
-        //    if (result.Succeeded)
-        //    {
-        //        return Ok();
-        //    }
-        //    return this.BadRequest(result.Errors.ToList().First().Description);
-        //}
+        }       
 
         //
         // GET: /Account/GeneratePwdRecoveryEmail
