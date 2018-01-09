@@ -12,7 +12,7 @@ namespace SoundCatalog.Configuration
         public string Issuer { get; set; }
 
         /// <summary>
-        /// "aud" (Audience) Claim - The "aud" (audience) claim identifies the recipients that the JWT is intended for
+        /// "aud" (Audience) Claim - The "aud" (audience) claim identifies the recipients that the JWT is intended for.
         /// </summary>
         public string Audience { get; set; }
 
