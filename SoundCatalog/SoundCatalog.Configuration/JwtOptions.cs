@@ -16,6 +16,8 @@ namespace SoundCatalog.Configuration
         /// </summary>
         public string Audience { get; set; }
 
+        public string SecretKey { get; set; }
+
         public SymmetricSecurityKey Key
         {
             get
@@ -24,6 +26,6 @@ namespace SoundCatalog.Configuration
             }
         }
 
-        private string SecretKey { get; set; }
+        
     }
 }
