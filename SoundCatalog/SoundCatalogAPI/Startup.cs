@@ -10,6 +10,7 @@ using SoundCatalog.Configuration;
 using SoundCatalog.Data;
 using SoundCatalog.Models;
 using SoundCatalog.Services;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Threading.Tasks;
 
@@ -74,6 +75,12 @@ namespace SoundCatalogAPI
             services.Configure<EmailOptions>(Configuration.GetSection(nameof(EmailOptions)));
             services.Configure<ClientOptions>(Configuration.GetSection(nameof(ClientOptions)));
 
+            // Register the Swagger generator, defining one or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "SoundCatalog API", Version = "v1" });
+            });
+
             // services
             services.AddSingleton<IMessageServices, MessageServices>();
         }
@@ -89,6 +96,15 @@ namespace SoundCatalogAPI
             app.UseCors("PolicySoundCatalogUI");
 
             app.UseAuthentication();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SoundCatalog API V1");
+            });
 
             app.UseMvc();
 

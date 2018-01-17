@@ -15,6 +15,7 @@ using SoundCatalog.Configuration;
 using SoundCatalog.Models;
 using SoundCatalog.Services;
 using SoundCatalog.Web.ViewModels;
+using SoundCatalogAPI.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -130,6 +131,7 @@ namespace SoundCatalogAPI.Controllers
         // GET: /Account/GenerateConfirmEmail
         [AllowAnonymous]
         [Route("generateconfirmemail")]
+        [HttpGet]
         public async Task<ActionResult> GenerateConfirmEmail(string email)
         {
             var user = await this._userManager.FindByEmailAsync(email);
@@ -148,6 +150,7 @@ namespace SoundCatalogAPI.Controllers
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         [Route("confirmemail")]
+        [HttpGet]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
@@ -173,32 +176,33 @@ namespace SoundCatalogAPI.Controllers
         }
 
         //
-        // GET: /Account/ResetPassword
+        // POST: /Account/ResetPassword
         [AllowAnonymous]
         [Route("resetpassword")]
-        public async Task<ActionResult> ResetPassword(string userId, string code, string password)
+        [HttpPost]
+        public async Task<ActionResult> ResetPassword([FromBody]ResetPasswordViewModel model)
         {
-            if (userId == null || code == null)
+            if (string.IsNullOrEmpty(model.UserId) || string.IsNullOrEmpty(model.Code))
             {
                 return BadRequest();
             }
 
-            var user = await this._userManager.FindByIdAsync(userId);
+            var user = await this._userManager.FindByIdAsync(model.UserId);
             if (user == null)
             {
                 return BadRequest();
             }
 
             //Hack: The code generate when is processed by querystring, it replace '+' symbol with ' '"
-            code = code.Replace(" ", "+");
-            var result = await this._userManager.ResetPasswordAsync(user, code,password);
+            //code = code.Replace(" ", "+");
+            var result = await this._userManager.ResetPasswordAsync(user, model.Code, model.Password);
 
             if (result.Succeeded)
             {
                 return Ok();
             }
             return this.BadRequest(result.Errors.ToList().First().Description);
-        }
+        }       
 
         //
         // GET: /Account/GeneratePwdRecoveryEmail
