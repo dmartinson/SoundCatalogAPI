@@ -15,6 +15,7 @@ using SoundCatalog.Configuration;
 using SoundCatalog.Models;
 using SoundCatalog.Services;
 using SoundCatalog.Web.ViewModels;
+using SoundCatalogAPI.Models;
 using SoundCatalogAPI.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -83,7 +84,16 @@ namespace SoundCatalogAPI.Controllers
                         expires: DateTime.Now.AddMinutes(30),
                         signingCredentials: creds);
 
-                    return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+                    var jwtTokenGenerated = new JwtSecurityTokenHandler().WriteToken(token);
+                    var authUser = new AuthorizedUser
+                    {
+                        Username = user.Email,
+                        Firstname = user.FirstName,
+                        Lastname = user.LastName,
+                        Token = jwtTokenGenerated
+                    };
+
+                    return Ok(authUser);
                 }
             }
 
