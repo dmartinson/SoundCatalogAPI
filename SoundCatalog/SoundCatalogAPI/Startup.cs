@@ -83,10 +83,11 @@ namespace SoundCatalogAPI
 
             // services
             services.AddSingleton<IMessageServices, MessageServices>();
+            services.AddTransient<UsersInitialize>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UsersInitialize usersSeeder)
         {
             if (env.IsDevelopment())
             {
@@ -108,7 +109,8 @@ namespace SoundCatalogAPI
 
             app.UseMvc();
 
-            
+            // Initialize data
+            usersSeeder.Seed().Wait();
         }
     }
 }

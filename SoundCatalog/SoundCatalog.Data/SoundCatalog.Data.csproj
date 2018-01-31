@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SoundCatalog.Crosscutting\SoundCatalog.Crosscutting.csproj" />
     <ProjectReference Include="..\SoundCatalog.Models\SoundCatalog.Models.csproj" />
   </ItemGroup>
 

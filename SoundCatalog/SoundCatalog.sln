@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundCatalogAPI", "SoundCatalogAPI\SoundCatalogAPI.csproj", "{23259666-C1C4-4391-9D7F-BAE3ADAC20CB}"
 EndProject
@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundCatalog.Data", "SoundC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundCatalog.Models", "SoundCatalog.Models\SoundCatalog.Models.csproj", "{53116E15-7FF6-42A6-BB02-9DADFB267E1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundCatalog.Services", "SoundCatalog.Services\SoundCatalog.Services.csproj", "{2A27DC08-FED0-4D01-906C-A572D614E7EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundCatalog.Services", "SoundCatalog.Services\SoundCatalog.Services.csproj", "{2A27DC08-FED0-4D01-906C-A572D614E7EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundCatalog.Configuration", "SoundCatalog.Configuration\SoundCatalog.Configuration.csproj", "{72FA3B47-F22D-4F24-BB83-205CC9E74BBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundCatalog.Configuration", "SoundCatalog.Configuration\SoundCatalog.Configuration.csproj", "{72FA3B47-F22D-4F24-BB83-205CC9E74BBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundCatalog.Crosscutting", "SoundCatalog.Crosscutting\SoundCatalog.Crosscutting.csproj", "{A4090DB9-A99B-4210-876F-7ECECBEB9176}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,32 +41,15 @@ Global
 		{72FA3B47-F22D-4F24-BB83-205CC9E74BBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72FA3B47-F22D-4F24-BB83-205CC9E74BBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72FA3B47-F22D-4F24-BB83-205CC9E74BBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4090DB9-A99B-4210-876F-7ECECBEB9176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4090DB9-A99B-4210-876F-7ECECBEB9176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4090DB9-A99B-4210-876F-7ECECBEB9176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4090DB9-A99B-4210-876F-7ECECBEB9176}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3ADE1BE0-6A0D-4442-A1C8-503223FACDC1}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://gangoffourcommunity.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = SoundCatalog.Data\\SoundCatalog.Data.csproj
-		SccProjectName1 = SoundCatalog.Data
-		SccLocalPath1 = SoundCatalog.Data
-		SccProjectUniqueName2 = SoundCatalog.Models\\SoundCatalog.Models.csproj
-		SccProjectName2 = SoundCatalog.Models
-		SccLocalPath2 = SoundCatalog.Models
-		SccProjectUniqueName3 = SoundCatalogAPI\\SoundCatalogAPI.csproj
-		SccProjectName3 = SoundCatalogAPI
-		SccLocalPath3 = SoundCatalogAPI
-		SccProjectUniqueName4 = SoundCatalog.Services\\SoundCatalog.Services.csproj
-		SccProjectName4 = SoundCatalog.Services
-		SccLocalPath4 = SoundCatalog.Services
-		SccProjectUniqueName5 = SoundCatalog.Configuration\\SoundCatalog.Configuration.csproj
-		SccProjectName5 = SoundCatalog.Configuration
-		SccLocalPath5 = SoundCatalog.Configuration
 	EndGlobalSection
 EndGlobal

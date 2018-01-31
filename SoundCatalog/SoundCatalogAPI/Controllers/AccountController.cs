@@ -17,6 +17,7 @@ using SoundCatalog.Services;
 using SoundCatalog.Web.ViewModels;
 using SoundCatalogAPI.Models;
 using SoundCatalogAPI.ViewModels;
+using static SoundCatalog.Crosscutting.Constants.Constants;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -69,10 +70,13 @@ namespace SoundCatalogAPI.Controllers
                 var result = await this._signInManager.CheckPasswordSignInAsync(user, loginModel.Password, false);
                 if (result.Succeeded)
                 {
+                    var isAdminUser = await this._userManager.IsInRoleAsync(user, Roles.Administrator);
+
                     var claims = new[]
                     {
                       new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                       new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                      new Claim(ClaimTypes.Role, isAdminUser ? Roles.Administrator : Roles.Contributor)
                     };
 
                     var creds = new SigningCredentials(this._jwtConfiguration.Key, SecurityAlgorithms.HmacSha256);
@@ -125,14 +129,20 @@ namespace SoundCatalogAPI.Controllers
                 Password = model.Password
             };
             var result = await this._userManager.CreateAsync(user, user.Password);
-
+            
             if (result.Succeeded)
             {
-                _logger.LogInformation("User {userName} was created.", model.Email);
+                var result2 = await this._userManager.AddToRoleAsync(user, Roles.Contributor);
 
-                await this.SendConfirmEmailAsync(user);
-                
-                return this.Ok();
+                if (result2.Succeeded)
+                {
+                    _logger.LogInformation("User {userName} was created.", model.Email);
+
+                    await this.SendConfirmEmailAsync(user);
+
+                    return this.Ok();
+                }
+                return this.BadRequest(result2.Errors.ToList().First().Description);
             }
             return this.BadRequest(result.Errors.ToList().First().Description);
         }

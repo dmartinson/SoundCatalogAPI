@@ -11,8 +11,8 @@ using System;
 namespace SoundCatalog.Data.Migrations
 {
     [DbContext(typeof(SoundCatalogContext))]
-    [Migration("20171218095950_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20180131135651_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

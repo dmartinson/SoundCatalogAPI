@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SoundCatalog.Configuration\SoundCatalog.Configuration.csproj" />
+    <ProjectReference Include="..\SoundCatalog.Crosscutting\SoundCatalog.Crosscutting.csproj" />
     <ProjectReference Include="..\SoundCatalog.Data\SoundCatalog.Data.csproj" />
     <ProjectReference Include="..\SoundCatalog.Models\SoundCatalog.Models.csproj" />
     <ProjectReference Include="..\SoundCatalog.Services\SoundCatalog.Services.csproj" />
