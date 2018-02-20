@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SoundCatalog.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using static SoundCatalog.Crosscutting.Constants.Constants;
 
@@ -11,11 +9,18 @@ namespace SoundCatalog.Data
 {
     public class UsersInitialize
     {
-        private SoundCatalogContext _context;
+        private readonly SoundCatalogContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UsersInitialize(SoundCatalogContext context)
+        public UsersInitialize(
+            SoundCatalogContext context,
+            UserManager<ApplicationUser> userManager, 
+            RoleManager<IdentityRole> roleManager)
         {
             this._context = context;
+            this._userManager = userManager;
+            this._roleManager = roleManager;
         }
 
         public async Task Seed()
@@ -26,15 +31,13 @@ namespace SoundCatalog.Data
                 var contributorRole = new IdentityRole { Id = "Contributor", Name = Roles.Contributor };
                 var guestRole = new IdentityRole { Id = "Guest", Name = Roles.Guest };
 
-                await _context.Roles.AddRangeAsync(adminRole, contributorRole, guestRole);
-
-                await _context.SaveChangesAsync();
+                await this._roleManager.CreateAsync(adminRole);
+                await this._roleManager.CreateAsync(contributorRole);
+                await this._roleManager.CreateAsync(guestRole);
             }
 
             if (!_context.Users.Any())
             {
-                var adminRole = _context.Roles.Single(x => x.Id == "Admin");
-
                 var adminUser1 = new ApplicationUser
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -43,7 +46,8 @@ namespace SoundCatalog.Data
                     LastName = "Martinez Fuentes",
                     Password = "Jose.1981",
                     Email = "jmf.stk@gmail.com",
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    TwoFactorEnabled = false
                 };
                 var adminUser2 = new ApplicationUser
                 {
@@ -53,16 +57,15 @@ namespace SoundCatalog.Data
                     LastName = "Martinez",
                     Password = "Q1w2e3r4t5!.1",
                     Email = "diego.martinez.alonso@hotmail.com",
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    TwoFactorEnabled = false
                 };
 
-                var adminUser1WithAdminRole = new IdentityUserRole<string> { UserId = adminUser1.Id, RoleId = adminRole.Id };
-                var adminUser2WithAdminRole = new IdentityUserRole<string> { UserId = adminUser2.Id, RoleId = adminRole.Id };
+                await this._userManager.CreateAsync(adminUser1, adminUser1.Password);
+                await this._userManager.CreateAsync(adminUser2, adminUser2.Password);
 
-                await _context.Users.AddRangeAsync(adminUser1, adminUser2);
-                await _context.UserRoles.AddRangeAsync(adminUser1WithAdminRole, adminUser2WithAdminRole);
-
-                await _context.SaveChangesAsync();
+                await this._userManager.AddToRoleAsync(adminUser1, Roles.Administrator);
+                await this._userManager.AddToRoleAsync(adminUser2, Roles.Administrator);
             }
         }
     }
